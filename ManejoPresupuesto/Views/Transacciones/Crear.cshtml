@@ -1,0 +1,49 @@
+﻿@model TransaccionCreacionViewModel
+
+@{
+    ViewData["Title"] = "Crear Transacción";
+}
+
+<h1>Crear Transacciones</h1>
+
+<h5>Una transacción te permite indicar tus ingresos y gastos.</h5>
+
+<form asp-action="Crear">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="FechaTransaccion" class="form-label"></label>
+        <input asp-for="FechaTransaccion" class="form-control" />
+        <span asp-validation-for="FechaTransaccion"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="CuentaId" class="form-label"></label>
+        <select asp-for="CuentaId" asp-items="Model.Cuentas"class="form-select"></select>
+        <span asp-validation-for="CuentaId"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="TipoOperacionId" class="form-label"></label>
+        <select asp-for="TipoOperacionId" asp-items="Html.GetEnumSelectList<TipoOperacion>()" class="form-select"></select>
+        <span asp-validation-for="TipoOperacionId"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="CategoriaId" class="form-label"></label>
+        <select asp-for="CategoriaId"  class="form-select"></select>
+        <span asp-validation-for="CategoriaId"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Monto" class="form-label"></label>
+        <input asp-for="Monto" class="form-control" />
+        <span asp-validation-for="Monto"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Nota" class="form-label"></label>
+        <input asp-for="Nota" class="form-control" />
+        <span asp-validation-for="Nota"></span>
+    </div>
+
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

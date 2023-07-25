@@ -36,7 +36,7 @@ namespace ManejoPresupuesto.Servicios
         {
             using var connection = new SqlConnection(connectionString);
 
-            return await connection.QueryAsync<Categoria>(@"SELECT * FROM CATEGORIAS WHERE USUARIOID =@usuarioId;", new { usuarioId });
+            return await connection.QueryAsync<Categoria>(@"SELECT ID,NOMBRE, TIPO_OPERACION_ID AS TipoOperacionId, USUARIOID  FROM CATEGORIAS WHERE USUARIOID =@usuarioId;", new { usuarioId });
 
         }
 
