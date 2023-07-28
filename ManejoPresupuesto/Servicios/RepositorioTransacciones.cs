@@ -9,6 +9,7 @@ namespace ManejoPresupuesto.Servicios
         Task Actualizar(Transaccion transaccion, decimal montoAnterior, int cuentaAnterior);
         Task Borrar(int id);
         Task Crear(Transaccion transaccion);
+        Task<IEnumerable<Transaccion>> ObtenerPorCuentaId(ObtenerTransaccionesPorCuenta modelo);
         Task<Transaccion> ObtenerPorId(int id, int usuarioId);
     }
 
@@ -72,6 +73,22 @@ namespace ManejoPresupuesto.Servicios
             using var connection = new SqlConnection(connectionString);
             await connection.ExecuteAsync("Transacciones_Borrar", new {id}, commandType: System.Data.CommandType.StoredProcedure);
 
+        }
+
+        public async Task <IEnumerable<Transaccion>> ObtenerPorCuentaId(ObtenerTransaccionesPorCuenta modelo)
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Transaccion>(@"
+            SELECT T.ID,T.MONTO, T.FECHATRANSACCION, c.NOMBRE AS CATEGORIA,
+            CU.NOMBRE AS CUENTA, C.TIPO_OPERACION_ID
+            FROM TRANSACCIONES T
+            INNER JOIN CATEGORIAS C
+            ON C.ID= T.CATEGORIA_ID
+            INNER JOIN CUENTAS CU
+            ON CU.ID = T.CUENTA_ID
+            WHERE T.CUENTA_ID = @CuentaId AND T.USUARIOID = @usuarioId 
+            AND FECHATRANSACCION BETWEEN @FechaInicio AND @FechaFin
+            ", modelo);
         }
 
     }
