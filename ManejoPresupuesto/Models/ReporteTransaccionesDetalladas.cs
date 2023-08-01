@@ -22,9 +22,11 @@
 
             public IEnumerable<Transaccion> Transacciones { get; set; }
 
-            public decimal BalanceDepositos => Transacciones.Where(x => x.TipoOperacionId == TipoOperacion.INGRESOS).Sum(x => x.Monto);
+            public decimal BalanceDepositos => 
+                Transacciones.Where(x => x.TipoOperacionId == TipoOperacion.INGRESOS).Sum(x => x.Monto);
 
-            public decimal BalanceRetiros => Transacciones.Where(x => x.TipoOperacionId == TipoOperacion.GASTOS).Sum(x => x.Monto);
+            public decimal BalanceRetiros => 
+                Transacciones.Where(x => x.TipoOperacionId == TipoOperacion.GASTOS).Sum(x => x.Monto);
         }
 
     }

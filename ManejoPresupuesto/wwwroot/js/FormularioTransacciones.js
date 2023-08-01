@@ -11,11 +11,8 @@
         });
 
         const json = await respuesta.json();
-        console.log(json);
-        const opciones = json.map(categoria => `<option value=${categoria.value}>${categoria.text}</option>`);
-
+        const opciones =
+            json.map(categoria => `<option value=${categoria.value}>${categoria.text}</option>`);
         $("#CategoriaId").html(opciones);
-
-
     })
-} 
+}
